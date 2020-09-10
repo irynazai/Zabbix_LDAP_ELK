@@ -1,12 +1,12 @@
 provider "google" {
-  "credentials               = ""
+  #credentials               = ""
   project                   = var.project
   region                    = var.region
 }
 
-#-----------------------#
-# Add and init modules  #
-#-----------------------#
+#---------------------------------------------------------------------------#
+# Uncomment the required lines or override other variables of your choice.  #
+#---------------------------------------------------------------------------#
 module "network" {
   source                    = "./modules/network"
   project                   = var.project
@@ -14,16 +14,16 @@ module "network" {
 
 module "instance" {
   source                    = "./modules/instance"
-  project                   = var.project
+  #project                   = var.project
   #service_account_email     = var.service_account_email
-  ssh_user                  = var.ssh_user
+  #ssh_user                  = var.ssh_user
   depends_on                = [module.network]
 }
 
 module "bastion" {
   source                    = "./modules/bastion"
   #service_account_email     = var.service_account_email
-  ssh_user                  = var.ssh_user
-  project                   = var.project
+  #ssh_user                  = var.ssh_user
+  #project                   = var.project
   depends_on                = [module.network]  
 }
