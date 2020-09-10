@@ -9,7 +9,7 @@ resource "google_compute_instance" "server" {
     zone                        = var.zone
     
     metadata = {
-        ssh-keys                = "${var.ssh_user}:${file("key.pub")}"
+        ssh-keys                = "${var.ssh_user}:${var.ssh_key}"
     }
     
     metadata_startup_script     = file("install_ldap.sh")
@@ -57,7 +57,7 @@ resource "google_compute_instance" "client" {
     zone                        = var.zone
     
     metadata = {
-        ssh-keys                = "${var.ssh_user}:${file("key.pub")}"
+        ssh-keys                = "${var.ssh_user}:${var.ssh_key}"
     }
     
     metadata_startup_script     = templatefile("install_ldap_client.sh", {server = "${google_compute_instance.server.network_interface[0].network_ip}"})
@@ -73,8 +73,6 @@ resource "google_compute_instance" "client" {
     network_interface {
         network                 = var.network
         subnetwork              = var.subnet
-        access_config {
-        }
     }
     tags                        = var.client_tags
     

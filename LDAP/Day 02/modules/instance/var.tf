@@ -39,8 +39,8 @@ variable "network" {
 }
 
 variable "network_ip" {
-    description 		= "Internal ip."
-    default 		    = ""    
+    description 		    = "Internal ip."
+    default 		        = ""    
 }
 
 variable "subnet" {

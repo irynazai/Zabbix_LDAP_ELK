@@ -1,9 +1,5 @@
-#---------------------------------------------------------------#
-# Create terraform backend to use remote storage                #
-#---------------------------------------------------------------#
-
 provider "google" {
- #credentials               = ""
+  "credentials               = ""
   project                   = var.project
   region                    = var.region
 }
@@ -20,14 +16,14 @@ module "instance" {
   source                    = "./modules/instance"
   project                   = var.project
   #service_account_email     = var.service_account_email
-  #ssh_user                  = var.ssh_user
+  ssh_user                  = var.ssh_user
   depends_on                = [module.network]
 }
 
 module "bastion" {
   source                    = "./modules/bastion"
   #service_account_email     = var.service_account_email
-  #ssh_user                  = var.ssh_user
+  ssh_user                  = var.ssh_user
   project                   = var.project
   depends_on                = [module.network]  
 }

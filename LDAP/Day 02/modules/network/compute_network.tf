@@ -6,7 +6,7 @@ resource "google_compute_network" "compute_network" {
     name                        = var.name_network
     description                 = var.description
     project                     = var.project
-    auto_create_subnetworks     = false
+    auto_create_subnetworks     = var. auto_create_subnetworks
 }
 
 #-------------------------------------#
@@ -73,16 +73,16 @@ resource "google_compute_firewall" "deny-internal" {
 }
 
 
-#---------------------------------------------#
-# Create compute firewall server rules        #
-#---------------------------------------------#
+#------------------------------------------------------#
+# Create compute firewall internal server rules        #
+#------------------------------------------------------#
 
 resource "google_compute_firewall" "allow-internal" {
-    name                    	= var.http_rule
+    name                    	= var.internal_rule
     project                 	= var.project
     network                 	= google_compute_network.compute_network.name
     priority                	= var.priority_http
-    description             	= var.description_http_rule
+    description             	= var.description_internal_rule
     direction               	= var.direction
     allow {
         protocol                = "tcp"
@@ -96,5 +96,25 @@ resource "google_compute_firewall" "allow-internal" {
         protocol                = "icmp"
     }
     target_tags                 = var.server_tag
+    source_tags             	= var.client_tags
 } 
 
+
+#------------------------------------------------------#
+# Create compute firewall external server rules        #
+#------------------------------------------------------#
+
+resource "google_compute_firewall" "allow-http" {
+    name                    	= var.http_rule
+    project                 	= var.project
+    network                 	= google_compute_network.compute_network.name
+    priority                	= var.priority_http
+    description             	= var.description_http_rule
+    direction               	= var.direction
+    allow {
+        protocol                = var.http_protocol
+        ports                   = var.http_port
+    }
+    target_tags                 = var.server_tag
+    source_ranges             	= var.jump_ip 
+} 

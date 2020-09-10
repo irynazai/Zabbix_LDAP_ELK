@@ -11,7 +11,7 @@ resource "google_compute_instance" "bastion" {
     machine_type                = var.machine_type
     
     metadata = {
-        ssh-keys                = "${var.ssh_user}:${file("key.pub")}"
+        ssh-keys                = "${var.ssh_user}:${var.ssh_key}"
     }
 
     

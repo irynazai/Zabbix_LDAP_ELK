@@ -21,7 +21,7 @@ variable "name_network" {
 
 variable "auto_create_subnetworks" {
     description 		= "(Optional) If set to true, this network will be created in auto subnet mode, and Google will create a subnet for each region automatically. If set to false, a custom subnetted network will be created that can support google_compute_subnetwork resources. Defaults to true."
-    default     		= "true"
+    default     		= "false"
 }
 
 variable "routing_mode" {
@@ -63,153 +63,166 @@ variable "client_ip_google_access" {
 }
 
 variable "timeouts_create" {
-    description = "Time to create redis node. Default is 6 minutes. Valid units of time are s, m, h."
-    default     = "1s"
+    description         = "Time to create redis node. Default is 6 minutes. Valid units of time are s, m, h."
+    default             = "1s"
 }
 
 variable "timeouts_update" {
-    description = "Time to update redis node. Default is 6 minutes. Valid units of time are s, m, h."
-    default     = "1s"
+    description         = "Time to update redis node. Default is 6 minutes. Valid units of time are s, m, h."
+    default             = "1s"
 }
 
 variable "timeouts_delete" {
-    description = "Time to delete redis node. Default is 6 minutes. Valid units of time are s, m, h."
-    default     = "1s"
+    description         = "Time to delete redis node. Default is 6 minutes. Valid units of time are s, m, h."
+    default             = "1s"
 }
 
 variable "ssh_rule" {
-    description = "The firewall rules for ssh connection."
-    default = "ssh-rule"   
+    description         = "The firewall rules for ssh connection."
+    default             = "ssh-rule"   
 }
 
 variable "priority_ssh" {
-    description = "The priority of this rule."
-    default = "1000"    
+    description         = "The priority of this rule."
+    default             = "1000"    
 }
 
 variable "description_ssh_rule" {
-    default = "It's create ssh access throuht bastion-host to server network."    
+    default             = "It's create ssh access throuht bastion-host to server network."    
 }
 
 variable "direction" {
-    description = "This direction is allowed for all rules."
-    default = "INGRESS"    
+    description         = "This direction is allowed for all rules."
+    default             = "INGRESS"    
 }
 
 variable "ssh_protocol" {
-    description = "Ssh protocol."
-    default = "tcp"    
+    description         = "Ssh protocol."
+    default             = "tcp"    
 }
 
 variable "ssh_ports" {
-    description = "Ssh port."
-    default = ["22"]   
+    description         = "Ssh port."
+    default             = ["22"]   
 }
 
 variable "allow_ssh_tags" {
-    description = "The destination of ssh connection."
-    default = ["server-tag","client-tag"]    
+    description         = "The destination of ssh connection."
+    default             = ["server-tag","client-tag"]    
 }
 
 variable "ssh_tags" {
-    description = "The source of ssh connrction."
-    default = ["jump-tag"]    
+    description         = "The source of ssh connrction."
+    default             = ["jump-tag"]    
 }
 
 variable "http_rule" {
-    description = "A name of rule for connection with server web server."
-    default = "http-rule"    
+    description         = "A name of rule for connection with server by http."
+    default             = "http-rule"    
+}
+
+variable "internal_rule" {
+    description         = "A name of rule for connection client with server."
+    default             = "internal-rule"    
 }
 
 variable "priority_http" {
-    description = "The priority of this rule."
-    default = "1000"    
+    description         = "The priority of this rule."
+    default             = "1000"    
 }
 
 variable "description_http_rule" {
-    default = "It's create access to server web server from any host."   
+    default             = "It's create access to server web server from any host."   
+}
+
+variable "description_internal_rule" {
+    default             = "It's create access to server server from client."   
 }
 
 variable "http_protocol" {
-    description = "Http protocol."
-    default = "tcp"    
+    description         = "Http protocol."
+    default             = "tcp"    
 }
 
 variable "http_port" {
-     description = "Http port."
-    default = ["80","443"]   
+     description        = "Http port."
+    default             = ["80","443"]   
 }
 
 variable "server_tag" {
-    description = "server tag."
-    default = ["server-tag"]    
+    description         = "server tag."
+    default             = ["server-tag"]    
 } 
 
 variable "jump_rules" {
-    description = "A name of rule."
-    default = "jump-rules"    
+    description         = "A name of rule."
+    default             = "jump-rules"    
 }
 
 variable "priority_jump" {
-    description = "The priority of this rule."
-    default = "1000"    
+    description         = "The priority of this rule."
+    default             = "1000"    
 }
 
 variable "description_jump_rule" {
-    default = "It's create access to bastion host from any host."    
+    default             = "It's create access to bastion host from any host."    
 }
 
 variable "jump_protocol" {
-    description = "Bastionprotocol."
-    default = "tcp"    
+    description         = "Bastionprotocol."
+    default             = "tcp"    
 }
 variable "jump_port" {
-    description = "Bastion port."
-    default = ["22"]  
+    description         = "Bastion port."
+    default             = ["22"]  
 }
 
 variable "jump_tag" {
-    description = "Bastion tag."
-    default = ["jump-tag"]   
+    description         = "Bastion tag."
+    default             = ["jump-tag"]   
 }
 
 variable "jump_ip" {
-    description = "IP range which can access to bastion host."
-    default = ["0.0.0.0/0"]    
+    description         = "IP range which can access to bastion host."
+    default             = ["0.0.0.0/0"]    
 }
 
 variable "server_ip" {
-    description = "IP range which can access to bastion host."
-    default = ["0-65535"]  
+    description         = "IP range which can access to bastion host."
+    default             = ["0-65535"]  
 }
 
 variable "deny_rule" {
-    description = "A name of rule."
-    default = "deny-rule"    
+    description         = "A name of rule."
+    default             = "deny-rule"    
 }
 
 variable "priority_deny" {
-    description = "The priority of this rule."
-    default = "1001"    
+    description         = "The priority of this rule."
+    default             = "1001"    
 }
 
 variable "description_deny_rule" {
-    default = "It's make server access (deny all connection) throuht ssh connection if you try to access not throuht bastion host."    
+    default             = "It's make server access (deny all connection) throuht ssh connection if you try to access not throuht bastion host."    
 }
 
 variable "deny_protocol" {
-    description = "Deny protocol."
-    default = "tcp"    
+    description         = "Deny protocol."
+    default             = "tcp"    
 }
 
 variable "deny_port" {
-    description = "SSH port."
-    default = ["22"]    
+    description         = "SSH port."
+    default             = ["22"]    
 }
 
 variable "deny_tags" {
-    description = "Instanses with this tags has no access not throuht bastion host."
-    default = ["server-tag","client-tag"]    
+    description         = "Instanses with this tags has no access not throuht bastion host."
+    default             = ["server-tag","client-tag"]    
 }
 
+variable "client_tags" {
+  description           = "A tags of db host."
+  default               = ["client-tag"]    
+}
 

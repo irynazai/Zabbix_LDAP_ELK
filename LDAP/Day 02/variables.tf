@@ -14,3 +14,6 @@ variable "service_account_email" {
 
 }
 
+variable "ssh_key" {
+
+}
