@@ -7,6 +7,6 @@ output "phpLDAPadmin" {
 }
 
 output "check_ssh_user" {
-  value = "ssh iryna@${module.instance.client_ip}"	
+  value = "ssh zaitsava@${module.instance.client_ip}"	
 
 }
