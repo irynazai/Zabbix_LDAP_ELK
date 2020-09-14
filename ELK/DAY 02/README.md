@@ -6,7 +6,7 @@ Don't forget to include the values of the variables such as project name, servic
 
 You can use the bucket to load the desired files for the tomkat. To do this, uncomment the necessary lines in the managed_instance_groups module and in main.tf, enter the names and add your credits. (main.tf, terraform.tfvars, variables.tf)
 
-You can also use autoskelling: you need to uncomment autohealing in the network module and in the managed_instance_groups module to uncomment autoscelling.
+You can also use auto scaling: you need to uncomment autohealing in the network module and in the managed_instance_groups module to uncomment auto scaling.
 
 You need to modify the configuration file /etc/elasticsearch/elasticsearch.yml.
 Example:
