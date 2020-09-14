@@ -11,26 +11,26 @@ You can also use autoskelling: you need to uncomment autohealing in the network 
 You need to modify the configuration file /etc/elasticsearch/elasticsearch.yml.
 Example:
 
--- name the cluster
+- name the cluster <br>
 cluster.name: my-cluster
 node.name: es-node-1
 node.master: true
 node.data: false
--- enter the private IP and port of the host:
+- enter the private IP and port of the host:  <br>
 network.host: 172.11.61.27
 http.port: 9200
--- specify IP of nodes for cluster assembly:
+- specify IP of nodes for cluster assembly: <br>
 discovery.zen.ping.unicast.hosts: ["172.11.61.27", "172.31.22.131", "172.31.32.221"]
 
--- name the cluster
+- name the cluster <br>
 cluster.name: my-cluster
 node.name: es-node-2
 node.master: false
 node.data: true
--- enter the private IP and port of the host:
+- enter the private IP and port of the host: <br>
 network.host: 172.31.22.131
 http.port: 9200
--- specify IP of nodes for cluster assembly:
+- specify IP of nodes for cluster assembly: <br>
 discovery.zen.ping.unicast.hosts: ["172.11.61.27", "172.31.22.131", "172.31.32.221"]
 
 Don't forget to restart the elasticsearch service.
